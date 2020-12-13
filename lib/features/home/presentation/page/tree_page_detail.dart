@@ -93,117 +93,133 @@ class PageTreeDetail extends StatelessWidget {
           child: Container(
             height: screenHeight * 0.5,
             width: double.infinity,
-            child: Container(
-              margin: EdgeInsets.symmetric(
-                horizontal: screenWidth * 0.08,
-              ).copyWith(
-                top: screenHeight * 0.02,
+            child: ListView(
+              padding: EdgeInsets.only(
+                bottom: 10.0,
               ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+              physics: BouncingScrollPhysics(),
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.08,
+                  ).copyWith(
+                    top: screenHeight * 0.02,
+                  ),
+                  child: Column(
                     children: [
-                      Text(
-                        treeItem.treename,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25.0,
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        physics: BouncingScrollPhysics(),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              treeItem.treename,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25.0,
+                              ),
+                            ),
+                            Text(
+                              '\$${treeItem.price.truncateToDouble() * myCounter}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 35.0,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Flexible(
+                      Container(
+                        margin: EdgeInsets.only(
+                          top: screenHeight * 0.02,
+                        ),
                         child: Text(
-                          '\$${treeItem.price.truncateToDouble() * myCounter}',
+                          treeItem.treedetail,
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 35.0,
+                            color: Colors.grey[500],
                           ),
                         ),
-                      )
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                          top: screenHeight * 0.02,
+                        ),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          physics: BouncingScrollPhysics(),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.delivery_dining,
+                                size: 35.0,
+                                color: Colors.grey[600],
+                              ),
+                              SizedBox(
+                                width: screenWidth * 0.02,
+                              ),
+                              Text(
+                                'Standar Delivery: 2 days',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                              SizedBox(
+                                width: screenWidth * 0.08,
+                              ),
+                              CustomButton(
+                                onTap: () =>
+                                    context.read<CountProvider>().rest(),
+                                icon: Icons.remove,
+                              ),
+                              SizedBox(
+                                width: screenWidth * 0.02,
+                              ),
+                              Text(
+                                '$myCounter',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                              SizedBox(
+                                width: screenWidth * 0.02,
+                              ),
+                              CustomButton(
+                                onTap: () =>
+                                    context.read<CountProvider>().sum(),
+                                icon: Icons.add,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: screenHeight * 0.07,
+                        width: screenWidth * 0.9,
+                        margin: EdgeInsets.only(
+                          top: screenHeight * 0.1,
+                        ),
+                        child: Center(
+                          child: Text(
+                            'BUY NOW',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF27AE60),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
                     ],
                   ),
-                  Container(
-                    margin: EdgeInsets.only(
-                      top: screenHeight * 0.02,
-                    ),
-                    child: Text(
-                      treeItem.treedetail,
-                      style: TextStyle(
-                        color: Colors.grey[500],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(
-                      top: screenHeight * 0.02,
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.delivery_dining,
-                          size: 35.0,
-                          color: Colors.grey[600],
-                        ),
-                        SizedBox(
-                          width: screenWidth * 0.02,
-                        ),
-                        Text(
-                          'Standar Delivery: 2 days',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                        SizedBox(
-                          width: screenWidth * 0.08,
-                        ),
-                        CustomButton(
-                          onTap: () => context.read<CountProvider>().rest(),
-                          icon: Icons.remove,
-                        ),
-                        SizedBox(
-                          width: screenWidth * 0.02,
-                        ),
-                        Text(
-                          '$myCounter',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                          ),
-                        ),
-                        SizedBox(
-                          width: screenWidth * 0.02,
-                        ),
-                        CustomButton(
-                          onTap: () => context.read<CountProvider>().sum(),
-                          icon: Icons.add,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: screenHeight * 0.07,
-                    width: screenWidth * 0.9,
-                    margin: EdgeInsets.only(
-                      top: screenHeight * 0.1,
-                    ),
-                    child: Center(
-                      child: Text(
-                        'BUY NOW',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20.0,
-                        ),
-                      ),
-                    ),
-                    decoration: BoxDecoration(
-                      color: Color(0xFF27AE60),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -214,15 +230,17 @@ class PageTreeDetail extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          alignment: Alignment.topLeft,
-          margin: EdgeInsets.only(
-            top: screenHeight * 0.03,
-            left: screenWidth * 0.02,
-          ),
-          child: IconButton(
-            icon: Icon(Icons.arrow_back_ios),
-            onPressed: () => Navigator.pop(context),
+        SafeArea(
+          child: Container(
+            alignment: Alignment.topLeft,
+            margin: EdgeInsets.only(
+              top: screenHeight * 0.02,
+              left: screenWidth * 0.02,
+            ),
+            child: IconButton(
+              icon: Icon(Icons.arrow_back_ios),
+              onPressed: () => Navigator.pop(context),
+            ),
           ),
         ),
       ],
